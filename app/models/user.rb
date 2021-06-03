@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books, dependent: :destroy
+  has_many :book_comments, dependent: :destroy #User.book_commentsで、ユーザーの所有するコメントを取得できる
+
   attachment :profile_image, destroy: false
 
   validates :name, uniqueness: true, length: {maximum: 20, minimum: 2}
