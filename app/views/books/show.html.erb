@@ -36,6 +36,7 @@
             </p>
             <% end %>
           </td>
+          <td>コメント数：<%= @book.book_comments.count %></td>
         </tr>
       </table>
       <table class= 'table'>
@@ -46,12 +47,15 @@
           <%= book_comment.user.name %>
           <% end %>
           <%= book_comment.comment %>
+          <% if book_comment.user.id == current_user.id %>
           <%= link_to 'Destroy', book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %>
+          <% end %>
           </td>
         </tr>
         <% end %>
       </table>
       <div class= 'new-comment'>
+        <%= render 'layouts/errors', obj:@book %>
         <%= form_with(model:[@book, @book_comment], local:true) do |f| %>
         <%= f.text_area :comment, rows:'5' %>
         <%= f.submit "送信" %>
